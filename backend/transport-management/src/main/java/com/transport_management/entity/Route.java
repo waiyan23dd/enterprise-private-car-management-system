@@ -26,7 +26,7 @@ public class Route extends BaseEntity {
 
     private String destination;
 
-    @Column(precision = 10, scale = 2)
+    @Column(name = "distance_km", precision = 10, scale = 2, nullable = false)
     private BigDecimal distanceKm;
 
     private Integer estimatedDuration;

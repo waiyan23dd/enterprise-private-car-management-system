@@ -26,7 +26,7 @@ public class Payment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
@@ -45,7 +45,7 @@ public class Payment extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "received_by")
     private User receivedBy;
 
@@ -55,7 +55,8 @@ public class Payment extends BaseEntity {
     @OneToMany(
     	    mappedBy = "payment",
     	    cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    	    orphanRemoval = false
+    	    orphanRemoval = false,
+    	    fetch = FetchType.LAZY
     	)
     	private List<PaymentImage> paymentImages = new ArrayList<>();
 }

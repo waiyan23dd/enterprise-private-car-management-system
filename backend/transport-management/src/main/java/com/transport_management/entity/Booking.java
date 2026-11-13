@@ -4,9 +4,11 @@ import com.transport_management.entity.base.BaseEntity;
 import com.transport_management.enums.BookingPaymentStatus;
 import com.transport_management.enums.BookingSource;
 import com.transport_management.enums.BookingStatus;
-import com.transport_management.enums.PaymentStatus;
+
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
 @Table(name = "bookings")
@@ -29,12 +33,12 @@ public class Booking extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String bookingNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
     private User customer;
 
-    @ManyToOne
-    @JoinColumn(name = "route_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id", nullable = false)
     private Route route;
 
     private LocalDate bookingDate;
@@ -43,6 +47,10 @@ public class Booking extends BaseEntity {
 
     private LocalTime departureTime;
 
+    @NotNull
+    @Min(1)
+    @Max(4)
+    @Column(nullable = false)
     private Integer passengerCount;
 
     private String contactName;

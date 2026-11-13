@@ -19,7 +19,7 @@ public class Notification extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long notificationId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -33,5 +33,6 @@ public class Notification extends BaseEntity {
 
     private Long referenceId;
 
-    private Boolean isRead;
+    @Column(name = "is_read", nullable = false)
+    private Boolean isRead = false;
 }
